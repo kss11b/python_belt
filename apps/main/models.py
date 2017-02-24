@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-import bcrypt
+import bcrypt, datetime
 
 class UserManager(models.Manager):
     def login(self, user):
@@ -33,3 +33,10 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+class Appointment(models.Model):
+    task = models.TextField()
+    date = models.DateField()
+    time = models.TimeField()
+    status = models.CharField(max_length=20)
+    user_id = models.ForeignKey(User, related_name="creator")
